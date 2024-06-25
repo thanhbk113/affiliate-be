@@ -14,7 +14,7 @@ import (
 
 // Create ...
 func (p subPostImpl) Update(ctx context.Context, body request.SubPostUpdate, id modelmg.AppID) error {
-	if err := checkParIdExist(ctx, id.Hex()); err != nil {
+	if err := checkSubID(ctx, id); err != nil {
 		return err
 	}
 	IModel := new(modelmg.SubPostRaw)
