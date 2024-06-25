@@ -1,0 +1,166 @@
+basePath: /admin
+definitions:
+  affiliate_pkg_admin_model_request.ParPost:
+    properties:
+      name:
+        type: string
+      pass:
+        type: string
+    type: object
+  affiliate_pkg_admin_model_request.SubPost:
+    properties:
+      content:
+        type: string
+      parId:
+        type: string
+      pass:
+        type: string
+      title:
+        type: string
+    type: object
+info:
+  contact:
+    email: dev@reshare.vn
+    name: Dev team
+    url: https://bag-manage.vn
+  description: |
+    All APIs for affiliate Manage admin.
+
+    ******************************
+    - Add description
+    ******************************
+  termsOfService: https://bag-manage.vn
+  title: affiliate - Admin API
+  version: "1.0"
+paths:
+  /file/photo:
+    post:
+      consumes:
+      - application/json
+      operationId: file-upload-image
+      parameters:
+      - description: File
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Upload image
+      tags:
+      - Files
+  /parPost:
+    get:
+      consumes:
+      - application/json
+      operationId: parPost-get-list
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - enum:
+        - newest
+        - oldest
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: GetList
+      tags:
+      - ParPost
+    post:
+      consumes:
+      - application/json
+      operationId: parPost-create
+      parameters:
+      - description: Payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/affiliate_pkg_admin_model_request.ParPost'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Create
+      tags:
+      - ParPost
+  /subPost:
+    post:
+      consumes:
+      - application/json
+      operationId: subPost-create
+      parameters:
+      - description: Payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/affiliate_pkg_admin_model_request.SubPost'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Create
+      tags:
+      - SubPost
+  /subPost/{id}:
+    get:
+      consumes:
+      - application/json
+      operationId: subPost-get-list
+      parameters:
+      - in: query
+        name: limit
+        type: integer
+      - in: query
+        name: page
+        type: integer
+      - enum:
+        - newest
+        - oldest
+        in: query
+        name: sort
+        type: string
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: GetList
+      tags:
+      - SubPost
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
