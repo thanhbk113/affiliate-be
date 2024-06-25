@@ -17,6 +17,11 @@ type SubPost struct {
 	Content string `json:"content"`
 }
 
+type SubPostUpdate struct {
+	Pass    string `json:"pass"`
+	Content string `json:"content"`
+}
+
 type SubPostAll struct {
 	Page  int64  `query:"page"`
 	Limit int64  `query:"limit"`
@@ -34,6 +39,13 @@ func (p *ParPost) Validate() error {
 	return validation.ValidateStruct(p,
 		validation.Field(&p.Name, validation.Required.Error(errorresponse.CommonKeyNameIsRequired)),
 		validation.Field(&p.Pass, validation.Required.Error(errorresponse.CommonKeyPassIsRequired)),
+	)
+}
+
+func (p *SubPostUpdate) Validate() error {
+	return validation.ValidateStruct(p,
+		validation.Field(&p.Pass, validation.Required.Error(errorresponse.CommonKeyPassIsRequired)),
+		validation.Field(&p.Content, validation.Required.Error(errorresponse.CommonKeyContentIsRequired)),
 	)
 }
 

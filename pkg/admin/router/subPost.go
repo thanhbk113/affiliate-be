@@ -18,4 +18,6 @@ func subPost(e *echo.Group) {
 
 	g.POST("", h.Create, v.Create)
 	g.GET("/:id", h.GetList, v.GetList, c.ParamID)
+	g.PUT("/:id", h.Update, v.Update, c.ParamID)
+	g.GET("/detail/:id", h.GetDetail, c.ParamID)
 }

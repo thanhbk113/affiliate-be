@@ -18,6 +18,13 @@ definitions:
       title:
         type: string
     type: object
+  affiliate_pkg_admin_model_request.SubPostUpdate:
+    properties:
+      content:
+        type: string
+      pass:
+        type: string
+    type: object
 info:
   contact:
     email: dev@reshare.vn
@@ -156,6 +163,53 @@ paths:
       security:
       - ApiKeyAuth: []
       summary: GetList
+      tags:
+      - SubPost
+    put:
+      consumes:
+      - application/json
+      operationId: subPost-update
+      parameters:
+      - description: Payload
+        in: body
+        name: payload
+        required: true
+        schema:
+          $ref: '#/definitions/affiliate_pkg_admin_model_request.SubPostUpdate'
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: Update
+      tags:
+      - SubPost
+  /subPost/detail/{id}:
+    get:
+      consumes:
+      - application/json
+      operationId: subPost-get-detail
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      security:
+      - ApiKeyAuth: []
+      summary: GetDetail
       tags:
       - SubPost
 securityDefinitions:

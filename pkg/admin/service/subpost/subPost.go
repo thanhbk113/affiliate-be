@@ -11,6 +11,8 @@ import (
 type SubPostInterface interface {
 	Create(ctx context.Context, body request.SubPost) error
 	GetList(ctx context.Context, query *mgquery.CommonQuery, id modelmg.AppID) (response.SubPostAllResponse, error)
+	Update(ctx context.Context, body request.SubPostUpdate, id modelmg.AppID) error
+	GetDetail(ctx context.Context, id modelmg.AppID) (response.SubPostRes, error)
 }
 
 type subPostImpl struct {

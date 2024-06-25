@@ -12,6 +12,7 @@ import (
 type SubPosttInterface interface {
 	Create(next echo.HandlerFunc) echo.HandlerFunc
 	GetList(next echo.HandlerFunc) echo.HandlerFunc
+	Update(next echo.HandlerFunc) echo.HandlerFunc
 }
 
 func SubPost() SubPosttInterface {
@@ -51,6 +52,23 @@ func (p subPostImpl) GetList(next echo.HandlerFunc) echo.HandlerFunc {
 			return cc.ValidationError(err)
 		}
 		c.Set(constants.KeyQuery, payload)
+		return next(c)
+	}
+}
+
+func (p subPostImpl) Update(next echo.HandlerFunc) echo.HandlerFunc {
+	return func(c echo.Context) error {
+		var (
+			cc      = echocustom.EchoGetCustomCtx(c)
+			payload request.SubPostUpdate
+		)
+		if err := c.Bind(&payload); err != nil {
+			return cc.Response400(nil, "")
+		}
+		if err := payload.Validate(); err != nil {
+			return cc.ValidationError(err)
+		}
+		c.Set(constants.KeyPayload, payload)
 		return next(c)
 	}
 }

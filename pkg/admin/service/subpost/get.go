@@ -52,6 +52,17 @@ func (p subPostImpl) GetList(ctx context.Context, query *mgquery.CommonQuery, id
 	return data, nil
 }
 
+func (p subPostImpl) GetDetail(ctx context.Context, id modelmg.AppID) (response.SubPostRes, error) {
+	var (
+		product = new(modelmg.SubPostRaw)
+	)
+	err := daomongodb.SubPostDAO().GetShare().FindOne(ctx, product, bson.M{"_id": id})
+	if err != nil {
+		return response.SubPostRes{}, err
+	}
+	return p.getBrief(*product), nil
+}
+
 func (s subPostImpl) getBrief(product modelmg.SubPostRaw) response.SubPostRes {
 	return response.SubPostRes{
 		ID:        product.ID.Hex(),
@@ -64,6 +75,10 @@ func (s subPostImpl) getBrief(product modelmg.SubPostRaw) response.SubPostRes {
 }
 
 func checkParID(ctx context.Context, id modelmg.AppID) error {
+	err := checkSubID(ctx, id)
+	if err != nil {
+		return err
+	}
 	parPostRaw := new(modelmg.ParPostRaw)
 
 	if err := daomongodb.ParPostDAO().GetShare().FindOne(ctx, parPostRaw, bson.M{"_id": id}); err != nil {
@@ -71,6 +86,18 @@ func checkParID(ctx context.Context, id modelmg.AppID) error {
 	}
 	if parPostRaw.ID.IsZero() {
 		return errors.New("par id not exist")
+	}
+	return nil
+}
+
+func checkSubID(ctx context.Context, id modelmg.AppID) error {
+	subPostRaw := new(modelmg.SubPostRaw)
+
+	if err := daomongodb.SubPostDAO().GetShare().FindOne(ctx, subPostRaw, bson.M{"_id": id}); err != nil {
+		return errors.New(locale.CommonKeyBadRequest)
+	}
+	if subPostRaw.ID.IsZero() {
+		return errors.New("sub id not exist")
 	}
 	return nil
 }
