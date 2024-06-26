@@ -17,6 +17,7 @@ type SubPostRaw struct {
 	ParID     AppID     `bson:"parId"`
 	Title     string    `bson:"title"`
 	Content   string    `bson:"content"`
+	Image     string    `bson:"image"`
 	CreatedAt time.Time `bson:"createdAt"`
 	UpdatedAt time.Time `bson:"updatedAt"`
 }

@@ -21,6 +21,7 @@ func (p subPostImpl) Create(ctx context.Context, body request.SubPost) error {
 		ID:        modelmg.NewAppID(),
 		ParID:     util.ConvertStringToObjectID(body.ParID),
 		Title:     body.Title,
+		Image:     body.Image,
 		Content:   body.Content,
 		CreatedAt: util.TimeNow(),
 		UpdatedAt: util.TimeNow(),

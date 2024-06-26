@@ -13,6 +13,7 @@ type ParPost struct {
 type SubPost struct {
 	Pass    string `json:"pass"`
 	ParID   string `json:"parId"`
+	Image   string `json:"image"`
 	Title   string `json:"title"`
 	Content string `json:"content"`
 }
@@ -55,6 +56,7 @@ func (p *SubPost) Validate() error {
 		validation.Field(&p.ParID, validation.Required.Error(errorresponse.CommonKeyParIDIsRequired)),
 		validation.Field(&p.Title, validation.Required.Error(errorresponse.CommonKeyTitleIsRequired)),
 		validation.Field(&p.Content, validation.Required.Error(errorresponse.CommonKeyContentIsRequired)),
+		validation.Field(&p.Image, validation.Required.Error(errorresponse.CommonKeyImageIsRequired)),
 	)
 }
 
