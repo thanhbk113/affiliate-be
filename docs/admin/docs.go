@@ -317,6 +317,9 @@ const docTemplate = `{
                 "content": {
                     "type": "string"
                 },
+                "image": {
+                    "type": "string"
+                },
                 "parId": {
                     "type": "string"
                 },
