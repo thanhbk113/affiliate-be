@@ -75,10 +75,6 @@ func (s subPostImpl) getBrief(product modelmg.SubPostRaw) response.SubPostRes {
 }
 
 func checkParID(ctx context.Context, id modelmg.AppID) error {
-	err := checkSubID(ctx, id)
-	if err != nil {
-		return err
-	}
 	parPostRaw := new(modelmg.ParPostRaw)
 
 	if err := daomongodb.ParPostDAO().GetShare().FindOne(ctx, parPostRaw, bson.M{"_id": id}); err != nil {
