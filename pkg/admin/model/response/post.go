@@ -18,6 +18,7 @@ type SubPostRes struct {
 	Title     string `json:"title"`
 	Content   string `json:"content"`
 	ParID     string `json:"parId"`
+	Image     string `json:"image"`
 	CreatedAt string `json:"createdAt"`
 	UpdatedAt string `json:"updatedAt"`
 }

@@ -69,6 +69,7 @@ func (s subPostImpl) getBrief(product modelmg.SubPostRaw) response.SubPostRes {
 		Title:     product.Title,
 		Content:   product.Content,
 		ParID:     product.ParID.Hex(),
+		Image:     product.Image,
 		CreatedAt: util.TimeISO(product.CreatedAt),
 		UpdatedAt: util.TimeISO(product.UpdatedAt),
 	}
