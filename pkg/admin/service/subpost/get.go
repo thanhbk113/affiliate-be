@@ -42,7 +42,7 @@ func (p subPostImpl) GetList(ctx context.Context, query *mgquery.CommonQuery, id
 	}
 
 	for _, product := range products {
-		productRes := p.getBrief(product)
+		productRes := p.getBriefWithoutContent(product)
 
 		res = append(res, productRes)
 	}
@@ -68,6 +68,17 @@ func (s subPostImpl) getBrief(product modelmg.SubPostRaw) response.SubPostRes {
 		ID:        product.ID.Hex(),
 		Title:     product.Title,
 		Content:   product.Content,
+		ParID:     product.ParID.Hex(),
+		Image:     product.Image,
+		CreatedAt: util.TimeISO(product.CreatedAt),
+		UpdatedAt: util.TimeISO(product.UpdatedAt),
+	}
+}
+
+func (s subPostImpl) getBriefWithoutContent(product modelmg.SubPostRaw) response.SubPostRes {
+	return response.SubPostRes{
+		ID:        product.ID.Hex(),
+		Title:     product.Title,
 		ParID:     product.ParID.Hex(),
 		Image:     product.Image,
 		CreatedAt: util.TimeISO(product.CreatedAt),
