@@ -81,7 +81,7 @@ func (p subPostImpl) GetList(c echo.Context) error {
 		Page:  q.Page,
 		Limit: cc.GetLimit(q.Limit),
 		SortInterface: bson.D{
-			{"createdAt", -1},
+			{"createdAt", 1},
 		},
 	}
 	if !ok {
